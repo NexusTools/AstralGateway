@@ -17,22 +17,22 @@ public class JSPlugin extends NXPlugin {
     
     @Override
     public Object runMethod(String methodname, NXRunnable ifnull, Object ... args) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null; // haax
     }
 
     @Override
     public Object runMethod(String methodname, Object ... args) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null; // haax
     }
 
     @Override
     public Object getField(String fieldname, Object ifnull) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null; // haax
     }
 
     @Override
     public Object getField(String fieldname) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null; // haax
     }
     
 }
