@@ -1,26 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package nexustools.terrain;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.Vec3;
-import net.minecraft.world.Teleporter;
 import net.minecraft.world.WorldProvider;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraft.world.biome.BiomeGenDesert;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraftforge.client.IRenderHandler;
 import nexustools.astralgateway.WorldPluginManager;
 import nexustools.plugin.NXPlugin;
 

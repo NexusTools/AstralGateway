@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package nexustools.terrain;
 
 import simplex.*;
@@ -191,32 +187,11 @@ private final float G2 = 0.211324865f;
 
 public boolean needsPerm = true;
 public void generatePerm(long seed){
-//    
-//    long seed = -1;
-//    
-//    try {
-//        // WTF java why no getSeed method? Seriously... wtf... //
-//        Field fi = r.getClass().getDeclaredField("seed");
-//        fi.setAccessible(true);
-//        Object oseed = fi.get(r);
-//        if(oseed instanceof java.util.concurrent.atomic.AtomicLong) seed = ((java.util.concurrent.atomic.AtomicLong)oseed).longValue();
-//        else if(oseed instanceof Long) seed = (Long) oseed;
-//        else System.err.println("ERROR: Seed datatype unknown! FIX THIS");
-////        seed = (Long) fi.get(r);
-//        System.out.println("SeedGot " + seed);
-//    } catch (Exception ex) {
-//        ex.printStackTrace();
-//    }
-        
     System.out.println("Generating simplex permutations for seed: " + seed + "...");
     
     Random nr = new Random(seed); // dont affect the regular random, and make sure the results are always the same regardless of when generatePerm is called
-    
-    char[] npermh = new char[perm.length/2];
-    int i;
-    for(i = 0; i < npermh.length; i++) npermh[i] = (char) (nr.nextFloat()*255);
-    System.out.println("perm->" + new String(npermh));
-    for(i = 0; i < npermh.length; i++) perm[i] = perm[i+npermh.length] = npermh[i]; // the array must be repeated
+
+    for(int i = 0; i < perm.length/2; i++) perm[i] = perm[i+(perm.length/2)] = (char) (nr.nextFloat()*255);
 }
 // 2D simplex noise
 public float noise(float x, float y) {
