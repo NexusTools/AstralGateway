@@ -77,7 +77,7 @@ public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenera
                     b = x + z * 16;
                     nlx = ((float)(x+(chunkx*16)))/(256f);
                     nlz = ((float)(z+(chunky*16)))/(256f);
-                    if(b>=tmp.length){
+                    if(!single&&b>=tmp.length){
                         System.out.println("FUUUUUUU ERRROR D: biome coordinate out of bounds: " + b + ", limit: " + tmp.length);
                     }
                     topblock = single?singledata.topBlock:tmp[b].topBlock;

@@ -9,5 +9,5 @@ package nexustools.plugin;
  * @author luke
  */
 public interface NXRunnable {
-    public void run(Object ... args);
+    public Object run(Object ... args);
 }

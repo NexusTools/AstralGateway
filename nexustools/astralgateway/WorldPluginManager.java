@@ -18,6 +18,7 @@ public class WorldPluginManager {
     
     public static void addPluglin(NXPlugin plug, int at){
         plugins.put(at, plug);
+        plug.runMethod("init");
     }
     
     static {

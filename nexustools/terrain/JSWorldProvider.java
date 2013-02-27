@@ -30,54 +30,14 @@ import nexustools.plugin.NXPlugin;
  */
 public class JSWorldProvider extends WorldProvider {
     
-    ScriptEngine e = null;
-    Invocable i = null;
-    
-    public JSWorldProvider(){
-        String script = "";
-        ScriptEngine cr = null;
-        for(ScriptEngineFactory factory : new ScriptEngineManager().getEngineFactories()){ // this doesnt run new ScriptEngineManager() every time.... right?
-            if(factory.getEngineName().toLowerCase().contains("js") || factory.getEngineName().toLowerCase().contains("avasc") || factory.getEngineName().toLowerCase().contains("ecma") || factory.getEngineName().toLowerCase().contains("rhino") || factory.getEngineName().toLowerCase().contains("v8")){ // uggo
-                cr = factory.getScriptEngine();
-                break;
-            }
-        }
-        
-        e = cr;
-        
-        try {
-            i = (Invocable) e.eval(script);
-        } catch (ScriptException ex) {
-            Logger.getLogger(JSWorldProvider.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            i.invokeFunction("init");
-        } catch (ScriptException ex) {
-            Logger.getLogger(JSWorldProvider.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(JSWorldProvider.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-//        Block.stone.getBlockTexture(worldObj, dimensionId, dimensionId, dimensionId, dimensionId);
-    }
-
     NXPlugin plug = null;
     
     @Override
     public void setDimension(int dim) {
-        
-        if(WorldPluginManager.getPluginFor(dim) != null){ //yes this runs twice, weee
-            plug = WorldPluginManager.getPluginFor(dim);
-            plug.runMethod("init");
-        }
-        
+        plug = WorldPluginManager.getPluginFor(dim);
         super.setDimension(dim);
     }
     
-//    
-//    this.
-//
 //    @Override
 //    public Vec3 getFogColor(float par1, float par2) {
 //        return worldObj.getWorldVec3Pool().getVecFromPool(0.9f, 0.9f, 0.1f);
@@ -87,8 +47,6 @@ public class JSWorldProvider extends WorldProvider {
 //    public Vec3 getSkyColor(Entity cameraEntity, float partialTicks) {
 //        return worldObj.getWorldVec3Pool().getVecFromPool(0.8f, 0.8f,0f);
 //    }
-////    
-//    this.
 
 //    @Override
 //    public BiomeGenBase getBiomeGenForCoords(int x, int z) {
@@ -97,54 +55,37 @@ public class JSWorldProvider extends WorldProvider {
 ////        return super.getBiomeGenForCoords(x, z);
 //    }
     
-//    this.
-    
 //    @Override
 //    public float getCloudHeight() {
 //        return 220f;
 //    }
-    
-//    this.
 
     @Override
     public ChunkCoordinates getSpawnPoint() {
         return new ChunkCoordinates(0, 250, 0);
     }
-    
-//    this.
-    
-//    this.
 
     @Override
     public String getDimensionName() {
-        try {
-            return (String) i.invokeFunction("getName");
-    //        throw new UnsupportedOperationException("Not supported yet.");
-        } catch (ScriptException ex) {
-            Logger.getLogger(JSWorldProvider.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(JSWorldProvider.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "unknown";
+        return (String)plug.runMethod("getName");
     }
 
     @Override
     public IChunkProvider createChunkGenerator() {
         SimplexProvider p = new SimplexProvider(worldObj, 0, false);
-//        this.dimensionId
         if(plug != null){
             Object res = plug.runMethod("isBiome");
             if(res != null){
-                System.out.println(res.toString());
+                System.out.println("isBiome: "+res.toString());
+                if(res.toString().toLowerCase().equals("true")){ //lol
+                    CustomBiome cb = new CustomBiome();
+                    cb.topBlock=(short) Double.parseDouble(plug.runMethod("getTopBlock").toString());
+                    cb.fillerBlock=(short) Double.parseDouble(plug.runMethod("getFillerBlock").toString());
+                    p.setSingleBiome(cb);
+                    p.setSingle(true);
+                }
             }
         }
-        CustomBiome cb = new CustomBiome();
-//        cb.topBlock = (short) Block.waterStill.blockID;
-        cb.topBlock=(short)Block.blockDiamond.blockID;
-        cb.fillerBlock=(short)Block.blockGold.blockID;
-//        cb.fillerBlock = (short) Block.lavaStill.blockID;
-//        p.setSingleBiome(cb);
-//        p.setSingle(true);
         return p;
     }
     

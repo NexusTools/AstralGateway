@@ -18,8 +18,6 @@ import net.minecraftforge.common.DimensionManager;
  */
 public class DimensionManagerExtensions {
 
-    static ArrayList<Integer> loaded = new ArrayList<Integer>();
-
     public static void transferEntityToDimension(EntityPlayerMP ent, int dim) {
         final WorldServer pass = DimensionManager.getWorld(dim);
         if(dim == 0)

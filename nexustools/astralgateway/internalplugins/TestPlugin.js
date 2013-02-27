@@ -1,4 +1,4 @@
-importPackage("nexustools.astralgateway.api");
+//importPackage("nexustools.astralgateway.api");
 
 //function getReplacements(){ // not used yet, but can later be used to return a list of from->to post-processing replacement blockds
 //    
@@ -11,10 +11,10 @@ function isBiome(){ // return true if this source is a biome
     return true;
 }
 function getTopBlock(){
-    return Block.stone.blockID;
+    return 80; // snow
 }
 function getFillerBlock(){
-    return Block.lavaStill.blockID;
+    return 79; // ice
 }
 
 function getSingleBiome(){
@@ -32,5 +32,5 @@ function getName(){ // world provider calls this
 }
 
 function init(){
-    print("weee test is working");
+    print("weee test is working\n");
 }
