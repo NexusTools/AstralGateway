@@ -50,7 +50,9 @@ public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenera
     static BiomeGenBase[] tmp = null;
     
     InstancedSimplex is = new InstancedSimplex();
-        
+    
+    public float res = 256f;
+    
     float trg = 0.5f;
     
     @Override
@@ -66,13 +68,13 @@ public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenera
         
         if(!single)
             tmp = world.getWorldChunkManager().loadBlockGeneratorData(tmp, chunkx* 16, chunky * 16, 16, 16);
-       
+        
         try{
             for(int x = 0; x < 16; x++){
                 for(int z = 0; z < 16; z++){
                     b = x + z * 16;
-                    nlx = ((float)(x+(chunkx*16)))/(256f);
-                    nlz = ((float)(z+(chunky*16)))/(256f);
+                    nlx = ((float)(x+(chunkx*16)))/(res);
+                    nlz = ((float)(z+(chunky*16)))/(res);
                     if(!single&&b>=tmp.length){
                         System.out.println("FUUUUUUU ERRROR D: biome coordinate out of bounds: " + b + ", limit: " + tmp.length);
                     }
@@ -107,6 +109,8 @@ public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenera
         Chunk ret = new Chunk(world, blocks, metas, chunkx, chunky);
         
         ret.generateSkylightMap();
+        
+        
         
         return ret;
     }

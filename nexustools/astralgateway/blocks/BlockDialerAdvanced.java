@@ -1,4 +1,4 @@
-package nexustools.astralgateway;
+package nexustools.astralgateway.blocks;
 
 /**
  *

@@ -3,6 +3,7 @@ package nexustools.astralgateway;
 import nexustools.astralgateway.api.DimensionManagerExtensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
@@ -17,6 +18,7 @@ public class TestTransporter extends Block{
         super(id, tx, mat);
         this.setBlockName("Test Transporter");
         this.setLightValue(4.20f);
+        this.setCreativeTab(CreativeTabs.tabTransport);
     }
 
     @Override

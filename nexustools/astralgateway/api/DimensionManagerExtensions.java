@@ -1,6 +1,5 @@
 package nexustools.astralgateway.api;
 
-import java.util.ArrayList;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChunkCoordinates;

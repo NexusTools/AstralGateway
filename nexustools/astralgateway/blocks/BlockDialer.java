@@ -1,4 +1,4 @@
-package nexustools.astralgateway;
+package nexustools.astralgateway.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

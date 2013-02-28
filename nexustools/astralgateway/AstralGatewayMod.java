@@ -1,8 +1,9 @@
 package nexustools.astralgateway;
 
+import nexustools.astralgateway.blocks.BlockDialer;
+import nexustools.astralgateway.blocks.BlockIronScreen;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
-import cpw.mods.fml.common.Mod.Metadata;
 import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -12,21 +13,16 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.Teleporter;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DimensionManager;
 import nexustools.plugin.JSPlugin;
-import nexustools.plugin.NXPlugin;
-import nexustools.plugin.NXRunnable;
-import nexustools.terrain.JSWorldProvider;
+import nexustools.terrain.PluginWorldProvider;
 
 /**
  *
@@ -49,6 +45,17 @@ public class AstralGatewayMod {
             while((r = in.read(b))>-1){
                 scr += new String(b,0,r);
             }
+            in.close();
+        } catch (IOException ex) {
+            Logger.getLogger(AstralGatewayMod.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        WorldPluginManager.addPluglin(new JSPlugin(scr), 419);
+        in = AstralGatewayMod.class.getResourceAsStream("/nexustools/astralgateway/internalplugins/TestPlugin_RollingForest.js");
+        try {
+            while((r = in.read(b))>-1){
+                scr += new String(b,0,r);
+            }
+            in.close();
         } catch (IOException ex) {
             Logger.getLogger(AstralGatewayMod.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,22 +65,14 @@ public class AstralGatewayMod {
         worlds = new Configuration(new File(fil.substring(0,fil.lastIndexOf(".")) + "_worlds.cfg"));
         
         for(int i = 0; i < worlds.get("meta", "count", "0").getInt(); i++){
-            DimensionManager.registerProviderType(worlds.get("world_" + i, "realid", "0").getInt(), JSWorldProvider.class, true);
+            DimensionManager.registerProviderType(worlds.get("world_" + i, "realid", "0").getInt(), PluginWorldProvider.class, true);
         }
         
-//        DimensionManager.
-        
-        DimensionManager.registerProviderType(420, JSWorldProvider.class, true);
+        DimensionManager.registerProviderType(420, PluginWorldProvider.class, true);
         DimensionManager.registerDimension(420, 420);
         
         test = new TestTransporter(4002, 423, Material.rock);
         
-//        DimensionManager.unregisterDimension(1);
-//        DimensionManager.registerDimension(1, 420);
-//        DimensionManager.
-        
-//        DimensionManager.
-//        worlds = new Configuration(new File(fil.toString()))
     }
     
     Sifter sifter = null;
