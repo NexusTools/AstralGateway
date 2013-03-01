@@ -1,6 +1,7 @@
 package nexustools.astralgateway;
 
-import nexustools.astralgateway.blocks.BlockDialer;
+import nexustools.astralgateway.items.ItemLapisDiamond;
+import nexustools.astralgateway.items.ItemDialer;
 import nexustools.astralgateway.blocks.BlockIronScreen;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -21,6 +22,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DimensionManager;
+import nexustools.astralgateway.blocks.BlockTransporter;
+import nexustools.astralgateway.items.ItemCoupler;
 import nexustools.plugin.JSPlugin;
 import nexustools.terrain.PluginWorldProvider;
 
@@ -72,19 +75,18 @@ public class AstralGatewayMod {
         DimensionManager.registerDimension(420, 420);
         
         test = new TestTransporter(4002, 423, Material.rock);
+        tport = new BlockTransporter(4003, 423, Material.rock);
+        lapisdiamond = new ItemLapisDiamond(4002);
+        coupler = new ItemCoupler(4003);
         
     }
+  
+    ItemDialer dialer = null;
+    ItemCoupler coupler = null;
+    ItemLapisDiamond lapisdiamond = null;
     
-    Sifter sifter = null;
-    
-    LapisDiamond lapisdiamond = null;
-    
-    DialerCore dialercore = null;
-    DataCore datacore = null;
-    
+    BlockTransporter tport = null;
     BlockIronScreen isc = null;
-    
-    BlockDialer dialer = null;
     
     TestTransporter test = null;
     
@@ -92,7 +94,13 @@ public class AstralGatewayMod {
     public void init(FMLInitializationEvent event) {
         
         GameRegistry.registerBlock(test, "Test Transporter");
+        GameRegistry.registerBlock(tport, "Transporter");
         LanguageRegistry.addName(test, "Test Transporter");
+        LanguageRegistry.addName(tport, "Transporter");
+        GameRegistry.registerItem(lapisdiamond, "Lapis Diamond");
+        GameRegistry.registerItem(coupler, "Coupler");
+        LanguageRegistry.addName(lapisdiamond, "Lapis Diamond");
+        LanguageRegistry.addName(coupler, "Coupler");
         
         GameRegistry.addRecipe(new ItemStack(test),
                 "ooo",
@@ -101,6 +109,28 @@ public class AstralGatewayMod {
                 'o', new ItemStack(Block.obsidian),
                 'e', new ItemStack(Item.enderPearl));
         
+        GameRegistry.addRecipe(new ItemStack(lapisdiamond),
+                "lll",
+                "ldl",
+                "lrl",
+                'l', new ItemStack(Item.dyePowder, 1, 4),
+                'd', new ItemStack(Item.diamond),
+                'r', new ItemStack(Item.redstone));
+        
+        GameRegistry.addRecipe(new ItemStack(coupler),
+                "olo",
+                "lgl",
+                "olo",
+                'o', new ItemStack(Block.obsidian),
+                'g', new ItemStack(Item.ingotGold),
+                'l', new ItemStack(lapisdiamond));
+        
+        GameRegistry.addRecipe(new ItemStack(tport),
+                "ooo",
+                "oco",
+                "ooo",
+                'o', new ItemStack(Block.obsidian),
+                'c', new ItemStack(coupler));
 //       
 //        GameRegistry.addRecipe(new ItemStack(isc),
 //                "i i",
@@ -115,13 +145,6 @@ public class AstralGatewayMod {
 //                'i', new ItemStack(isc),
 //                's', new ItemStack(Item.stick));
 //        
-//        GameRegistry.addRecipe(new ItemStack(lapisdiamond),
-//                "lll",
-//                "ldl",
-//                "lrl",
-//                'l', new ItemStack(Item.dyePowder, 1, 4),
-//                'd', new ItemStack(Item.diamond),
-//                'r', new ItemStack(Item.redstone));
 //        
 //        GameRegistry.addRecipe(new ItemStack(dialercore),
 //                "lll",

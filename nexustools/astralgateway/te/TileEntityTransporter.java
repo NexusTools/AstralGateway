@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 public class TileEntityTransporter extends TileEntity {
 
     public TileEntityTransporter(World w) {
+        System.out.println("new TileEntityTransporter");
     }
     
 }
