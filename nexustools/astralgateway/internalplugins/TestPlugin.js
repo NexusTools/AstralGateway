@@ -4,24 +4,32 @@
 //    
 //}
 
-function isSingleBiome(){
-    return true;
-}
-function isBiome(){ // return true if this source is a biome
-    return true;
-}
-function getTopBlock(){
-    return 80; // snow
-}
-function getFillerBlock(){
-    return 79; // ice
-}
+//function isSingleBiome(){
+//    return true;
+//}
+//function isBiome(){ // return true if this source is a biome
+//    return true;
+//}
 
-function getSingleBiome(){
-    return this;
+//function getStoneReplacement(){
+//    return 11; //stationary lava
+//}
+//
+//function getTopBlock(){
+//    return 1; // rock
+//}
+//function getFillerBlock(){
+//    return 49; // obsidian
+//}
+
+//function getSingleBiome(){
+//    return this;
+//}
+
+function getSimplexResolution(){
+    println("getting simplex resolution");
+    return 128;
 }
-
-
 
 function getPluginName(){
     return "Test world provider plugin";

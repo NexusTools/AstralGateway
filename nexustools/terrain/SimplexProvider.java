@@ -9,7 +9,7 @@ import net.minecraft.world.chunk.Chunk;
  *
  * @author luke
  */
-public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenerate{
+public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenerate {
     
     public static World world;
     
@@ -66,6 +66,8 @@ public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenera
         float nlx = 0;
         float nlz = 0;
         
+//        System.out.println("Providing simplex chunk at " + chunkx + ", " + chunky + " res: " + res);
+        
         if(!single)
             tmp = world.getWorldChunkManager().loadBlockGeneratorData(tmp, chunkx* 16, chunky * 16, 16, 16);
         
@@ -75,6 +77,7 @@ public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenera
                     b = x + z * 16;
                     nlx = ((float)(x+(chunkx*16)))/(res);
                     nlz = ((float)(z+(chunky*16)))/(res);
+//                    res += (is.noise(nlx%nlz)*2)/8129;
                     if(!single&&b>=tmp.length){
                         System.out.println("FUUUUUUU ERRROR D: biome coordinate out of bounds: " + b + ", limit: " + tmp.length);
                     }
@@ -85,9 +88,9 @@ public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenera
                     for(int y = 255; y > 0; y--){
                         v = y << 8 | z << 4 | x;
                         if(
-                                is.noise(nlx, nlz)>((float)y-128)/(128f) &&
-                                !(is.noise(nlx, y/128f, nlz)>0.5f) &&
-                                !(is.noise(nlz, y/16f, nlx)>0.6f)
+                                is.noise(nlx, nlz)/4f>((float)y-128)/(128f) &&
+                                !(is.noise(nlx, y/96f, nlz)>0.5f) &&
+                                !(is.noise(nlz, y/64f, nlx)>0.6f)
                         ){
                             try{
                                 if(y<255&&blocks[(y+1)<< 8 | z << 4 | x]==0){
@@ -97,7 +100,7 @@ public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenera
                                 }else{
                                     blocks[v] = 1;
                                 }
-                            }catch(Throwable e){System.out.println("Generation error at location " + x + ", " + y + ", " + z);}
+                            }catch(Throwable e){System.err.println("Generation error at location " + x + ", " + y + ", " + z);e.printStackTrace();}
                         }else if(y<32){
                             blocks[v] = (short)Block.waterStill.blockID;
                         }
@@ -109,8 +112,6 @@ public class SimplexProvider extends net.minecraft.world.gen.ChunkProviderGenera
         Chunk ret = new Chunk(world, blocks, metas, chunkx, chunky);
         
         ret.generateSkylightMap();
-        
-        
         
         return ret;
     }

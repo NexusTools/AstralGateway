@@ -43,7 +43,7 @@ public class AstralGatewayMod {
         String scr = "";
         int r = 0;
         byte[] b = new byte[1024];
-        InputStream in = AstralGatewayMod.class.getResourceAsStream("/nexustools/astralgateway/internalplugins/TestPlugin.js");
+        InputStream in = AstralGatewayMod.class.getResourceAsStream("/nexustools/astralgateway/internalplugins/TestPlugin_RollingForest.js");
         try {
             while((r = in.read(b))>-1){
                 scr += new String(b,0,r);
@@ -53,7 +53,7 @@ public class AstralGatewayMod {
             Logger.getLogger(AstralGatewayMod.class.getName()).log(Level.SEVERE, null, ex);
         }
         WorldPluginManager.addPluglin(new JSPlugin(scr), 419);
-        in = AstralGatewayMod.class.getResourceAsStream("/nexustools/astralgateway/internalplugins/TestPlugin_RollingForest.js");
+        in = AstralGatewayMod.class.getResourceAsStream("/nexustools/astralgateway/internalplugins/TestPlugin.js");
         try {
             while((r = in.read(b))>-1){
                 scr += new String(b,0,r);
@@ -78,7 +78,7 @@ public class AstralGatewayMod {
         tport = new BlockTransporter(4003, 423, Material.rock);
         lapisdiamond = new ItemLapisDiamond(4002);
         coupler = new ItemCoupler(4003);
-        
+        testo = new TestObelisk(4004, 423, Material.rock);
     }
   
     ItemDialer dialer = null;
@@ -89,13 +89,16 @@ public class AstralGatewayMod {
     BlockIronScreen isc = null;
     
     TestTransporter test = null;
+    TestObelisk testo = null;
     
     @Init
     public void init(FMLInitializationEvent event) {
         
         GameRegistry.registerBlock(test, "Test Transporter");
+        GameRegistry.registerBlock(testo, "Test Return Obelisk");
         GameRegistry.registerBlock(tport, "Transporter");
         LanguageRegistry.addName(test, "Test Transporter");
+        LanguageRegistry.addName(testo, "Test Return Obelisk");
         LanguageRegistry.addName(tport, "Transporter");
         GameRegistry.registerItem(lapisdiamond, "Lapis Diamond");
         GameRegistry.registerItem(coupler, "Coupler");

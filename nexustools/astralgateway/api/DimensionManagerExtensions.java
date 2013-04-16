@@ -56,23 +56,25 @@ public class DimensionManagerExtensions {
                     int xr = 0;
                     int yr = 40;
                     int zr = 0;
-                    for (int x = xr - 10; x < xr + 10; x++) {
-                        for (int y = yr - 10; y < yr + 10; y++) {
-                            for (int z = zr - 10; z < zr + 10; z++) {
-                                if (x == xr && y == yr - 8 && z == zr) {
-                                    pass.setBlock(x, y, z, 4002);
-                                } else {
-                                    pass.setBlock(x, y, z, 0);
-                                }
-                            }
-                        }
-                    }
-                    for (int y = yr; y < 255; y++) {
-                        pass.setBlock(xr, y, zr, 0);
-                    }
-
+                    
+//                    for (int x = xr - 10; x < xr + 10; x++) {
+//                        for (int y = yr - 10; y < yr + 10; y++) {
+//                            for (int z = zr - 10; z < zr + 10; z++) {
+//                                if (x == xr && y == yr - 8 && z == zr) {
+//                                    pass.setBlock(x, y, z, 4004);
+//                                } else {
+//                                    pass.setBlock(x, y, z, 0);
+//                                }
+//                            }
+//                        }
+//                    }
+//                    for (int y = yr; y < 255; y++) {
+//                        pass.setBlock(xr, y, zr, 0);
+//                    }
+                    pass.setBlock(0, pass.getHeightValue(0,0)+1, 0, 4004);
                     ent.setVelocity(0,0,0);
-                    ent.setLocationAndAngles(xr, yr+1, zr, 0, 0);
+//                    ent.setLocationAndAngles(xr, yr+1, zr, 0, 0);
+                    ent.setLocationAndAngles(0, pass.getHeightValue(0, 0)+5, 0, 0, 0);
 
                     return true; // finally.... no more automatic nethergate spawning
                 }
